@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e7f5fb"><meta name="robots" content="noindex,nofollow">
+  <title>Administración · Sensacional Rifa</title>
+  <link rel="stylesheet" href="styles.css"><script src="config.js" defer></script><script type="module" src="js/admin.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header"><a href="index.html" class="brand"><span class="brand-icon">✳</span><span><b>Mi rifa, organizada</b><small>Panel de administración</small></span></a><div class="header-actions"><a class="header-link" href="index.html">← Ver talonario</a><button id="logout" class="header-link button-link" hidden>Cerrar sesión</button></div></header>
+    <div class="notice notice-draft" id="draft-notice"><strong>Proyecto en preparación.</strong> Confirma la autorización y las condiciones del premio antes de usarlo para recibir ventas.</div>
+    <div class="notice notice-demo" id="demo-notice" hidden><strong>Modo demostración:</strong> los registros quedan únicamente en este navegador. No ingreses datos personales reales hasta conectar Supabase.</div>
+    <main>
+      <section id="login-view" class="login-wrap" hidden><div class="login-card"><div class="login-flower">✿</div><span class="eyebrow quiet">UN RINCÓN SOLO PARA TI</span><h1>Bienvenida <em>♡</em></h1><p>Inicia sesión para administrar compradores y pagos con privacidad.</p><form id="login-form"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" placeholder="tu-correo@ejemplo.com" required><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required><button class="primary-button" type="submit">Entrar al panel →</button><p id="login-error" class="error-text" role="alert"></p></form></div></section>
+      <section id="dashboard" hidden>
+        <div class="admin-heading"><div><span class="eyebrow quiet">TODO BAJO CONTROL</span><h1>Mi panel de <em>rifa</em> <span>✳</span></h1><p>Busca el número 48, selecciona varios a la vez y revisa quién compró o si ya pagó.</p></div><div class="admin-actions"><button class="outline-button" id="export-csv">↓ Exportar Excel (CSV)</button><button class="primary-button" id="export-png">↓ Imagen HD</button></div></div>
+        <div class="admin-stats"><div><small>DISPONIBLES</small><strong id="a-free">100</strong><span>Sin asignar</span></div><div><small>APARTADOS</small><strong id="a-held">0</strong><span>Reservados</span></div><div><small>POR COBRAR</small><strong id="a-pending">0</strong><span>Vendidos sin pago completo</span></div><div><small>RECAUDADO</small><strong id="a-earned">$0</strong><span>Abonos registrados</span></div></div>
+        <div class="admin-layout">
+          <section class="board-card admin-board">
+            <div class="board-heading"><div><span class="eyebrow quiet">CONTROL DE NÚMEROS</span><h2>Tu talonario <span>♡</span></h2><p>Haz clic para editar uno, o utiliza la selección múltiple.</p></div></div>
+            <div class="admin-filters"><label class="search-field"><span>⌕</span><input id="admin-search" type="search" placeholder="Buscar 48 o nombre del comprador" aria-label="Buscar por número o comprador"></label><select id="filter" class="select-compact" aria-label="Filtrar estado"><option value="todos">Todos</option><option value="disponible">Disponibles</option><option value="apartado">Apartados</option><option value="pendiente">Por cobrar</option><option value="pagado">Pagados</option></select></div>
+            <div class="multi-toolbar"><label class="switch-line"><input id="multi-mode" type="checkbox"> Seleccionar varios</label><span id="selection-count">1 seleccionado</span><button class="clear-button" id="clear-selection" type="button">Limpiar selección</button></div>
+            <div class="legend"><span><i class="legend-dot available"></i>Libre</span><span><i class="legend-dot held"></i>Apartado</span><span><i class="legend-dot pending"></i>Por cobrar</span><span><i class="legend-dot sold"></i>Pagado</span></div>
+            <div id="admin-grid" class="number-grid admin-grid"></div>
+            <div class="bulk-search"><label for="quick-numbers">¿Varios números a la vez?</label><div class="bulk-entry"><input id="quick-numbers" type="text" placeholder="Ejemplo: 08, 14, 48" aria-label="Números separados por comas"><button id="select-numbers" class="outline-button" type="button">Seleccionar</button></div><small>Escribe los números separados por comas, entre 00 y 99.</small></div>
+          </section>
+          <div class="admin-right">
+            <section class="edit-card"><div class="edit-card-heading"><span class="eyebrow quiet">FICHA PRIVADA</span><span class="private-tag">SOLO ADMINISTRACIÓN</span></div><div class="selected-row"><div id="selected-number" class="selected-number">00</div><div><h3 id="editing-title">Número seleccionado</h3><p id="editing-subtitle">Actualiza los datos y guarda los cambios</p></div></div>
+              <form id="ticket-form"><label for="ticket-status">Estado del número</label><select id="ticket-status"><option value="disponible">Disponible · sin comprador</option><option value="apartado">Apartado · reservado</option><option value="pendiente">Vendido · no ha pagado todo</option><option value="pagado">Vendido · pagado completo</option></select>
+              <label for="buyer-name">¿De quién es?</label><input id="buyer-name" maxlength="120" placeholder="Ej. Zamir Pabón" autocomplete="off">
+              <label for="buyer-phone">Celular del comprador <small>(privado)</small></label><input id="buyer-phone" maxlength="30" type="tel" placeholder="Ej. 300 000 0000">
+              <label for="amount-received">Dinero recibido <small>(COP)</small></label><input id="amount-received" type="number" min="0" max="10000000" step="1000" value="0">
+              <div class="amount-helper" id="payment-helper">Faltan $20.000 para completar la boleta.</div>
+              <label for="number-emoji">Emoji en el número <small>(opcional)</small></label><select id="number-emoji"><option value="">Sin emoji</option><option value="💗">💗 Corazón</option><option value="🎀">🎀 Moñito</option><option value="✅">✅ Verificado</option><option value="⭐">⭐ Estrella</option><option value="🔒">🔒 Reservado</option></select>
+              <label for="buyer-notes">Observaciones <small>(privadas)</small></label><textarea id="buyer-notes" maxlength="500" rows="3" placeholder="Ej. Falta transferencia o abonó una parte"></textarea>
+              <button id="save-ticket" type="submit" class="primary-button full-width">Guardar cambios ✓</button><p id="save-result" class="success-text" role="status"></p></form>
+            </section>
+            <section class="settings-card"><div class="settings-top"><div><span class="eyebrow quiet">PERSONALIZA TU RIFA</span><h3>Detalles del sorteo</h3></div><button id="settings-toggle" type="button" class="outline-button small-btn" aria-expanded="false">Editar</button></div><p>Fecha, premio, valor y número de contacto.</p><form id="settings-form" hidden><label for="s-title">Título</label><input id="s-title" maxlength="70" required><label for="s-prize">Premio propuesto</label><input id="s-prize" maxlength="60" required><label for="s-date">Fecha del sorteo</label><input id="s-date" type="date" required><label for="s-price">Valor de la boleta</label><input id="s-price" type="number" min="1000" step="1000" required><label for="s-lottery">Lotería</label><input id="s-lottery" maxlength="80" required><label for="s-organizer">Responsable visible</label><input id="s-organizer" maxlength="100"><label for="s-whatsapp">WhatsApp para contacto (con 57)</label><input id="s-whatsapp" type="tel" placeholder="573001234567" maxlength="20"><button class="primary-button" type="submit">Guardar datos del sorteo</button><p id="settings-result" class="success-text"></p></form></section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#e7f5fb">
+  <meta name="description" content="Un talonario digital pastel para consultar la disponibilidad de cien números.">
+  <title>Sensacional Rifa · Una noble causa</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script type="module" src="js/public.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a href="index.html" class="brand"><span class="brand-icon">✳</span><span><b>Un poquito de suerte</b><small>Una noble causa</small></span></a>
+      <div class="header-actions"><span class="live-chip"><i></i> Talonario digital</span><a class="header-link" href="admin.html">Administrar <span aria-hidden="true">↗</span></a></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow"><span>✦</span> UNA NOBLE CAUSA · UNA GRAN ILUSIÓN</span>
+          <h1>Sensacional <em>Rifa</em><span class="star-inline">✳</span></h1>
+          <p class="hero-description">Un número, una ilusión y muchas ganas de ayudar. Gracias por ser parte de algo bonito. <span>♡</span></p>
+          <div class="prize-panel"><div><span class="prize-label">PREMIO PROPUESTO</span><strong id="prize">$700.000</strong><small>Premio sujeto a validación legal</small></div><div class="prize-flower" aria-hidden="true">✿</div></div>
+          <div class="hero-meta"><div class="meta"><span class="meta-icon">◷</span><div><small>SORTEO</small><b id="draw-date">Sábado 19 de diciembre</b></div></div><div class="meta"><span class="meta-icon">✧</span><div><small>VALOR DEL NÚMERO</small><b id="ticket-price">$20.000</b></div></div></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="ticket-back"><span>MUCHA SUERTE</span><strong>♡</strong></div>
+          <div class="ticket-front"><div class="ticket-front-top"><span>✿</span> TU NÚMERO DE LA SUERTE <span>✿</span></div><div class="ticket-heart">♥</div><div class="ticket-number">07</div><div class="ticket-front-bottom">PUEDE CAMBIARLO TODO ✦</div></div>
+          <span class="art-star art-star-a">✦</span><span class="art-star art-star-b">✳</span><span class="art-star art-star-c">♡</span>
+        </div>
+      </section>
+      <div class="notice notice-draft" id="draft-notice"><strong>Vista previa.</strong> La rifa todavía no está habilitada para vender; verifica los permisos y las condiciones del premio antes de activarla.</div>
+      <div class="notice notice-demo" id="demo-notice" hidden><strong>Modo demostración.</strong> Los cambios se guardan solo en este navegador. Conecta Supabase para compartirlos entre dispositivos.</div>
+      <section class="board-layout">
+        <div class="board-card">
+          <div class="board-heading"><div><span class="eyebrow quiet">ESCOGE TU FAVORITO</span><h2>El talonario <span>✿</span></h2><p>100 oportunidades, del <b>00 al 99</b>. Toca cualquier número para ver su estado.</p></div><button class="circle-refresh" id="refresh" aria-label="Actualizar números" title="Actualizar números">↻</button></div>
+          <div class="board-toolbar"><label class="search-field"><span>⌕</span><input type="text" id="search-number" inputmode="numeric" maxlength="2" placeholder="Buscar número (ej. 48)" aria-label="Buscar número"></label><span id="last-update" class="updated-caption">Consultando...</span></div>
+          <div class="legend"><span><i class="legend-dot available"></i>Disponible</span><span><i class="legend-dot held"></i>Apartado</span><span><i class="legend-dot sold"></i>Vendido</span></div>
+          <div id="number-grid" class="number-grid" aria-label="Números disponibles y vendidos"></div>
+          <div class="board-bottom"><span id="stats-line">Cargando...</span><button id="download-png" class="outline-button">↓ Descargar imagen HD</button></div>
+        </div>
+        <aside class="aside-stack">
+          <section class="summary-card"><span class="eyebrow quiet">ASÍ VAMOS</span><h3>Cada ayuda suma <span>♡</span></h3><div class="progress-heading"><strong id="progress-pct">0%</strong><small id="sold-count">0 vendidos</small></div><div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div><div class="progress-stats"><div><strong id="free-count">100</strong><small>Libres</small></div><div><strong id="held-count">0</strong><small>Apartados</small></div><div><strong id="sold-count-small">0</strong><small>Vendidos</small></div></div></section>
+          <section class="info-card"><div class="flower-icon">✻</div><h3>¿Cómo participar?</h3><p>Elige tu número favorito y consulta su disponibilidad. Cuando esté habilitada la rifa, podrás contactar a la persona organizadora.</p><div class="info-line"><span>Lotería</span><strong id="lottery">Lotería de Boyacá</strong></div><div class="info-line"><span>Organiza</span><strong id="organizer">Organización de la rifa</strong></div><a class="contact-button is-disabled" id="wa-link" href="#" aria-disabled="true">Participación no habilitada</a></section>
+          <div class="quote-card">“A veces las cosas más bonitas empiezan con un pequeño gesto.” <span>♥</span></div>
+        </aside>
+      </section>
+      <footer class="footer"><span>Hecho con cariño ♡</span><span>Consulta actualizada · <span id="footer-desc">00–99</span></span></footer>
+    </main>
+  </div>
+  <dialog id="number-dialog" class="number-dialog"><form method="dialog"><button aria-label="Cerrar" class="close-dialog">×</button></form><span class="eyebrow quiet">ESTE ES TU NÚMERO</span><div class="modal-number" id="dialog-number">48</div><h3 id="dialog-title">Disponible</h3><p id="dialog-description"></p><a class="contact-button" id="dialog-action" href="#" hidden>Preguntar por WhatsApp ↗</a></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

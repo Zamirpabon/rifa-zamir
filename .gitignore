@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!*.env.example
+node_modules/
+# Los respaldos de compradores son privados; nunca subir al repositorio
+rifa-respaldo-privado*.csv
